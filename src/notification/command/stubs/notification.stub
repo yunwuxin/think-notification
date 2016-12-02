@@ -1,0 +1,23 @@
+<?php
+
+use Phinx\Migration\AbstractMigration;
+
+class CreateNotificationTable extends AbstractMigration
+{
+
+    public function change()
+    {
+        $this->table('notification', ['id' => false, 'primary_key' => 'id'])
+            ->addColumn('id', 'uuid')
+            ->addColumn('type', 'string')
+            ->addColumn('notifiable_id', 'integer')
+            ->addColumn('notifiable_type', 'string')
+            ->addColumn('data', 'text')
+            ->addColumn('read_time', 'timestamp', [
+                'null'    => true,
+                'default' => null
+            ])
+            ->addTimestamps()
+            ->create();
+    }
+}
