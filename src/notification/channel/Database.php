@@ -24,7 +24,7 @@ class Database extends Channel
      * @param Notifiable   $notifiable
      * @param Notification $notification
      */
-    public function send(Notifiable $notifiable, Notification $notification)
+    public function send($notifiable, Notification $notification)
     {
         $message = $this->getMessage($notifiable, $notification);
 

@@ -22,14 +22,14 @@ abstract class Channel
      * @param Notifiable   $notifiable
      * @param Notification $notification
      */
-    abstract public function send(Notifiable $notifiable, Notification $notification);
+    abstract public function send($notifiable, Notification $notification);
 
     /**
      * 获取通知数据
      * @param Notifiable   $notifiable
      * @param Notification $notification
      */
-    protected function getMessage(Notifiable $notifiable, Notification $notification)
+    protected function getMessage($notifiable, Notification $notification)
     {
         $toMethod = 'to' . class_basename($this);
 
