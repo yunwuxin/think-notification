@@ -61,7 +61,7 @@ text-align: center; text-decoration: none; -webkit-text-size-adjust: none;',
 {/php}
 
 {php} $fontFamily = 'font-family: \'Microsoft Yahei\', Arial, \'Helvetica Neue\', Helvetica, sans-serif;'; {/php}
-
+{php} $appName = config('?app_name')?config('app_name'):'ThinkPHP' {/php}
 <body style="{$style['body']}">
 <table width="100%" cellpadding="0" cellspacing="0">
     <tr>
@@ -72,7 +72,7 @@ text-align: center; text-decoration: none; -webkit-text-size-adjust: none;',
                     <td style="{$style['email-masthead']}">
                         <a style="{$fontFamily} {$style['email-masthead_name']}" href="{:url('/','',true,true)}"
                            target="_blank">
-                            {:config('app_name','ThinkPHP')}
+                            {$appName}
                         </a>
                     </td>
                 </tr>
@@ -86,7 +86,7 @@ text-align: center; text-decoration: none; -webkit-text-size-adjust: none;',
                                 <td style="{$fontFamily} {$style['email-body_cell']}">
                                     <!-- Greeting -->
                                     <h1 style="{$style['header-1']}">
-                                        {empty name="greeting"}
+                                        {notempty name="greeting"}
                                         {$greeting}
                                         {else/}
                                         {eq name='level' value='error'}
@@ -94,7 +94,7 @@ text-align: center; text-decoration: none; -webkit-text-size-adjust: none;',
                                         {else/}
                                         :)
                                         {/eq}
-                                        {/empty}
+                                        {/notempty}
                                     </h1>
 
                                     <!-- Intro -->
@@ -105,7 +105,6 @@ text-align: center; text-decoration: none; -webkit-text-size-adjust: none;',
                                     {/volist}
 
                                     <!-- Action Button -->
-                                    @if (isset($actionText))
                                     {present name='actionText'}
                                     <table style="{$style['body_action']}" align="center" width="100%"
                                            cellpadding="0" cellspacing="0">
@@ -144,7 +143,7 @@ text-align: center; text-decoration: none; -webkit-text-size-adjust: none;',
 
                                     <!-- Salutation -->
                                     <p style="{$style['paragraph']}">
-                                        Regards,<br>{!config('app_name','ThinkPHP')}
+                                        此致,<br>{$appName}
                                     </p>
 
                                     <!-- Sub Copy -->
@@ -182,7 +181,7 @@ text-align: center; text-decoration: none; -webkit-text-size-adjust: none;',
                                 <td style="{$fontFamily} {$style['email-footer_cell']}">
                                     <p style="{$style['paragraph-sub']}">
                                         &copy; {:date('Y')}
-                                        <a style="{$style['anchor']}" href="{:url('/','',true,true)}" target="_blank">{:config('app_name','ThinkPHP')}</a>.
+                                        <a style="{$style['anchor']}" href="{:url('/','',true,true)}" target="_blank">{$appName}</a>.
                                         All rights reserved.
                                     </p>
                                 </td>
