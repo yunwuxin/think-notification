@@ -38,10 +38,10 @@ abstract class Notification
 
     /**
      * 发送渠道
-     * @param $notifiable
+     * @param Notifiable $notifiable
      * @return array
      */
-    abstract public function channels(Notifiable $notifiable);
+    abstract public function channels($notifiable);
 
     /**
      * 发送通知
