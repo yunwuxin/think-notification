@@ -23,22 +23,22 @@ use yunwuxin\notification\model\Notification;
 trait HasDatabaseNotification
 {
     /**
-     * Get the entity's notifications.
+     * 所有通知
      */
     public function notifications()
     {
         return $this->morphMany(Notification::class, 'notifiable')
-            ->order('created_time', 'desc');
+            ->order('create_time', 'desc');
     }
 
     /**
-     * Get the entity's unread notifications.
+     * 未读通知
      */
     public function unreadNotifications()
     {
         return $this->morphMany(Notification::class, 'notifiable')
-            ->where('read_at', null)
-            ->order('created_time', 'desc');
+            ->where('read_time', null)
+            ->order('create_time', 'desc');
     }
 
     public function prepareDatabase()

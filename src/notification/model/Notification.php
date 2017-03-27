@@ -40,4 +40,9 @@ class Notification extends Model
             $this->save(['read_time' => time()]);
         }
     }
+
+    public function toCollection($collection)
+    {
+        return new NotificationCollection($collection);
+    }
 }
