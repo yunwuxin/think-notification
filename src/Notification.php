@@ -133,7 +133,6 @@ abstract class Notification
      */
     protected static function channel($name)
     {
-        $name = strtolower($name);
         if (!isset(self::$channels[$name])) {
             self::$channels[$name] = self::buildChannel($name);
         }
