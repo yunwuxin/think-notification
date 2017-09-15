@@ -1,9 +1,8 @@
 {% component '@mail/message' %}
 
-{% if not empty(greeting) %}
+{% if greeting %}
 # {{ greeting }}
 {% else %}
-
 {% if level == 'error' %}
 # 抱歉！
 {% else %}
