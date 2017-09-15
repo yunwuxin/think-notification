@@ -31,13 +31,22 @@ class MailableMessage extends Mailable
         $this->notification = $notification;
     }
 
+    protected function buildTwigLoader()
+    {
+        $loader = parent::buildTwigLoader();
+
+        $loader->addPath(dirname(__FILE__) . DS . 'view', 'notification');
+
+        return $loader;
+    }
+
     protected function build()
     {
         parent::build();
 
         $message = $this->message;
 
-        $this->view($message->view ?: dirname(__FILE__) . DS . 'view' . DS . 'mail.html', $message->data());
+        $this->markdown($message->view ?: '@notification/mail', $message->data());
 
         if (!empty($message->from)) {
             $this->from($message->from[0], isset($message->from[1]) ? $message->from[1] : null);
@@ -60,17 +69,6 @@ class MailableMessage extends Mailable
         foreach ($message->rawAttachments as $attachment) {
             $this->attachData($attachment['data'], $attachment['name'], $attachment['options']);
         }
-
-    }
-
-    protected function fetchView($view, $data)
-    {
-
-        if (!$this->message->view) {
-            return (new View('Think'))->fetch($view, $data);
-        }
-
-        return parent::fetchView($view, $data);
 
     }
 

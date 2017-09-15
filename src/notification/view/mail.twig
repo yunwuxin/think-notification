@@ -1,0 +1,48 @@
+{% component '@mail/message' %}
+
+{% if not empty(greeting) %}
+# {{ greeting }}
+{% else %}
+
+{% if level == 'error' %}
+# 抱歉！
+{% else %}
+# 您好！
+{% endif %}
+{% endif %}
+
+{% for line in introLines %}
+{{ line }}
+{% endfor %}
+
+{% if actionText is defined %}
+
+{% if level=='success' %}
+    {% set color = 'green' %}
+{% elseif level=='error' %}
+    {% set color = 'red' %}
+{% else %}
+    {% set color = 'blue' %}
+{% endif %}
+
+{% component '@mail/button' with {url:actionUrl,color:color} %}
+{{ actionText }}
+{% endcomponent %}
+
+{% endif %}
+
+{% for line in outroLines %}
+    {{ line }}
+{% endfor %}
+
+{{ config('app.name') }}
+
+{% if actionText is defined %}
+
+{% component '@mail/subcopy' %}
+如果上面的 "{{ actionText }}" 按钮无法点击,请复制下面的链接粘贴到你的浏览器中打开: [{{ actionUrl }}]({{ actionUrl }})
+{% endcomponent %}
+
+{% endif %}
+
+{% endcomponent %}
