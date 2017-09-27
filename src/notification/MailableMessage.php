@@ -12,7 +12,6 @@
 namespace yunwuxin\notification;
 
 use think\helper\Str;
-use think\View;
 use yunwuxin\mail\Mailable;
 use yunwuxin\Notification;
 use yunwuxin\notification\message\Mail;
@@ -35,7 +34,7 @@ class MailableMessage extends Mailable
     {
         $loader = parent::buildTwigLoader();
 
-        $loader->addPath(dirname(__FILE__) . DS . 'view', 'notification');
+        $loader->addPath(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'view', 'notification');
 
         return $loader;
     }
