@@ -119,7 +119,8 @@ class Sendcloud
                 'code'    => $this->data,
                 'smsUser' => $this->user
             ];
-            $url    = $this->host . 'smsapi/send';
+
+            $url    = $this->host . 'smsapi/sendVoice';
         } else {
             $params = [
                 'templateId' => $this->template,
@@ -128,7 +129,8 @@ class Sendcloud
                 'vars'       => json_encode($this->data),
                 'smsUser'    => $this->user
             ];
-            $url    = $this->host . 'smsapi/sendVoice';
+
+            $url    = $this->host . 'smsapi/send';
         }
 
         $this->signature($params);
