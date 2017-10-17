@@ -39,7 +39,7 @@
 {% if actionText is defined %}
 
 {% component '@mail/subcopy' %}
-如果上面的 "{{ actionText }}" 按钮无法点击,请复制下面的链接粘贴到你的浏览器中打开: [{{ actionUrl }}]({{ actionUrl }})
+如果上面的 "{{ actionText }}" 按钮无法点击,请复制下面的链接粘贴到你的浏览器中打开: [{{ actionUrl }}]({{ actionUrl|raw }})
 {% endcomponent %}
 
 {% endif %}
