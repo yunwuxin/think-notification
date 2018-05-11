@@ -10,9 +10,8 @@
     ],
     "require": {
         "ramsey/uuid": "^3.5",
-        "topthink/think-queue": "^1.1.2",
-        "topthink/think-helper": "^1.0",
-	"topthink/framework": "5.1.x-dev"
+        "topthink/think-queue": "^2.0",
+        "topthink/think-helper": "^1.0"
     },
     "autoload": {
         "psr-4": {
@@ -25,7 +24,8 @@
         "guzzlehttp/guzzle": "sendcloud channel"
     },
     "require-dev": {
-        "topthink/think-migration": "^1.0",
-        "yunwuxin/think-mail": "^1.0"
+        "topthink/think-migration": "^2.0",
+        "yunwuxin/think-mail": "2.0.x-dev",
+        "topthink/framework": "5.1.x-dev"
     }
 }
