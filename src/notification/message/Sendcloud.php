@@ -95,7 +95,7 @@ class Sendcloud
         ksort($params);
         foreach ($params as $sKey => $sValue) {
             if (is_array($sValue)) {
-                $value = implode(";", $sValue);
+                $value     = implode(";", $sValue);
                 $sParamStr .= $sKey . '=' . $value . '&';
             } else {
                 $sParamStr .= $sKey . '=' . $sValue . '&';
@@ -120,7 +120,7 @@ class Sendcloud
                 'smsUser' => $this->user
             ];
 
-            $url    = $this->host . 'smsapi/sendVoice';
+            $url = $this->host . 'smsapi/sendVoice';
         } else {
             $params = [
                 'templateId' => $this->template,
@@ -130,14 +130,20 @@ class Sendcloud
                 'smsUser'    => $this->user
             ];
 
-            $url    = $this->host . 'smsapi/send';
+            $url = $this->host . 'smsapi/send';
         }
 
         $this->signature($params);
 
-        $client->post($url, [
+        $response = $client->post($url, [
             'form_params' => $params
         ]);
+
+        $result = json_decode($response->getBody(), true);
+
+        if (!$result['result'] || $result['statusCode'] != 200) {
+            throw new \RuntimeException($result['message'], $result['statusCode']);
+        }
 
     }
 
