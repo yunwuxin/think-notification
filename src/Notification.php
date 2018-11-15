@@ -24,7 +24,6 @@ use yunwuxin\notification\Notifiable;
 /**
  * Class Notification
  * @package yunwuxin
- *
  * @property string  $queue
  * @property integer $delay
  */
@@ -53,7 +52,7 @@ abstract class Notification
         $notifiables = self::formatNotifiables($notifiables);
 
         if ($notification instanceof ShouldQueue) {
-            self::queue($notifiables, $notification);
+            self::sendQueue($notifiables, $notification);
         } else {
             self::sendNow($notifiables, $notification);
         }
@@ -95,7 +94,7 @@ abstract class Notification
      * @param Notifiable[]|Notifiable $notifiables
      * @param Notification            $notification
      */
-    public static function queue($notifiables, Notification $notification)
+    public static function sendQueue($notifiables, Notification $notification)
     {
         $notifiables = self::formatNotifiables($notifiables);
 
