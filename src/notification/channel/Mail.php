@@ -10,14 +10,23 @@
 // +----------------------------------------------------------------------
 namespace yunwuxin\notification\channel;
 
+use yunwuxin\Mail as Mailer;
 use yunwuxin\mail\Mailable;
 use yunwuxin\Notification;
 use yunwuxin\notification\Channel;
 use yunwuxin\notification\MailableMessage;
+use yunwuxin\notification\message\Mail as MailMessage;
 use yunwuxin\notification\Notifiable;
 
 class Mail extends Channel
 {
+    /** @var Mailer */
+    protected $mailer;
+
+    public function __construct(Mailer $mailer)
+    {
+        $this->mailer = $mailer;
+    }
 
     /**
      * 发送通知
@@ -28,12 +37,12 @@ class Mail extends Channel
     {
         $message = $this->getMessage($notifiable, $notification);
 
-        if ($message instanceof \yunwuxin\notification\message\Mail) {
+        if ($message instanceof MailMessage) {
             $message = new MailableMessage($message, $notification);
         }
 
         if ($message instanceof Mailable) {
-            \yunwuxin\Mail::send($message);
+            $this->mailer->send($message);
         }
     }
 }

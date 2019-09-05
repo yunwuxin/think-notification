@@ -1,6 +1,6 @@
-# ThinkPHP5 消息通知扩展
+# ThinkPHP6 消息通知扩展
 
-支持`mail` `sendcloud` `database`等驱动
+支持`mail` `sms` `database`等驱动
 
 ## 应用场景
 

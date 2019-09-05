@@ -28,6 +28,7 @@ abstract class Channel
      * 获取通知数据
      * @param Notifiable   $notifiable
      * @param Notification $notification
+     * @return mixed
      */
     protected function getMessage($notifiable, Notification $notification)
     {

@@ -31,8 +31,8 @@ class SendQueuedNotifications
         $this->channels     = $channels;
     }
 
-    public function handle()
+    public function handle(Sender $sender)
     {
-        Notification::sendNow($this->notifiables, $this->notification, $this->channels);
+        $sender->sendNow($this->notifiables, $this->notification, $this->channels);
     }
 }

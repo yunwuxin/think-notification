@@ -10,15 +10,7 @@
 // +----------------------------------------------------------------------
 namespace yunwuxin;
 
-use InvalidArgumentException;
-use Ramsey\Uuid\Uuid;
-use think\Collection;
-use think\helper\Str;
-use think\Queue;
-use think\queue\Queueable;
-use think\queue\ShouldQueue;
 use yunwuxin\notification\Channel;
-use yunwuxin\notification\SendQueuedNotifications;
 use yunwuxin\notification\Notifiable;
 
 /**
@@ -26,14 +18,12 @@ use yunwuxin\notification\Notifiable;
  * @package yunwuxin
  * @property string  $queue
  * @property integer $delay
+ * @property string  $connection
  */
 abstract class Notification
 {
 
     public $id;
-
-    /** @var Channel[] */
-    protected static $channels = [];
 
     /**
      * 发送渠道
@@ -42,129 +32,4 @@ abstract class Notification
      */
     abstract public function channels($notifiable);
 
-    /**
-     * 发送通知
-     * @param Notifiable[]|Notifiable $notifiables
-     * @param Notification            $notification
-     */
-    public static function send($notifiables, Notification $notification)
-    {
-        $notifiables = self::formatNotifiables($notifiables);
-
-        if ($notification instanceof ShouldQueue) {
-            self::sendQueue($notifiables, $notification);
-        } else {
-            self::sendNow($notifiables, $notification);
-        }
-    }
-
-    /**
-     * 发送通知(立即发送)
-     * @param Notifiable[]|Notifiable $notifiables
-     * @param Notification            $notification
-     * @param array                   $channels
-     */
-    public static function sendNow($notifiables, Notification $notification, array $channels = null)
-    {
-        $notifiables = self::formatNotifiables($notifiables);
-
-        $original = clone $notification;
-
-        foreach ($notifiables as $notifiable) {
-            $notificationId = (string) Uuid::uuid4();
-
-            $channels = $channels ?: $notification->channels($notifiable);
-
-            if (empty($channels)) {
-                continue;
-            }
-
-            foreach ($channels as $channel) {
-                $notification = clone $original;
-
-                $notification->id = $notificationId;
-
-                self::channel($channel)->send($notifiable, $notification);
-            }
-        }
-    }
-
-    /**
-     * 发送通知(队列发送)
-     * @param Notifiable[]|Notifiable $notifiables
-     * @param Notification            $notification
-     */
-    public static function sendQueue($notifiables, Notification $notification)
-    {
-        $notifiables = self::formatNotifiables($notifiables);
-
-        $delay = 0;
-        $queue = null;
-        if (in_array(Queueable::class, class_uses_recursive($notification))) {
-            $delay = $notification->delay;
-            $queue = $notification->queue;
-        }
-
-        foreach ($notifiables as $notifiable) {
-
-            $channels = $notification->channels($notifiable);
-
-            if (empty($channels)) {
-                continue;
-            }
-
-            foreach ($channels as $channel) {
-                $job = new SendQueuedNotifications($notifiable, $notification, [$channel]);
-
-                if ($delay > 0) {
-                    Queue::later($delay, $job, '', $queue);
-                } else {
-                    Queue::push($job, '', $queue);
-                }
-            }
-        }
-    }
-
-    /**
-     * 获取通知渠道
-     * @param string $name
-     * @return Channel
-     */
-    protected static function channel($name)
-    {
-        if (!isset(self::$channels[$name])) {
-            self::$channels[$name] = self::buildChannel($name);
-        }
-
-        return self::$channels[$name];
-    }
-
-    /**
-     * 创建渠道
-     * @param string $name
-     * @return Channel
-     */
-    protected static function buildChannel($name)
-    {
-        $className = false !== strpos($name, '\\') ? $name : "\\yunwuxin\\notification\\channel\\" . Str::studly($name);
-
-        if (class_exists($className)) {
-            return new $className;
-        }
-        throw new InvalidArgumentException("Channel [{$name}] not supported.");
-    }
-
-    /**
-     * 转数组
-     * @param $notifiables
-     * @return array
-     */
-    protected static function formatNotifiables($notifiables)
-    {
-        if (!$notifiables instanceof Collection && !is_array($notifiables)) {
-            return [$notifiables];
-        }
-
-        return $notifiables;
-    }
 }

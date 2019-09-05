@@ -1,8 +1,9 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
+use think\migration\db\Column;
+use think\migration\Migrator;
 
-class CreateNotificationTable extends AbstractMigration
+class CreateNotificationTable extends Migrator
 {
 
     public function change()

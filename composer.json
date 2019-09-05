@@ -1,6 +1,6 @@
 {
     "name": "yunwuxin/think-notification",
-    "description": "The Notification Library For ThinkPHP5",
+    "description": "The Notification Library For ThinkPHP6",
     "license": "Apache-2.0",
     "authors": [
         {
@@ -10,22 +10,28 @@
     ],
     "require": {
         "ramsey/uuid": "^3.5",
-        "topthink/think-queue": "^2.0",
-        "topthink/think-helper": "^1.0"
+        "topthink/think-queue": "^3.0",
+        "topthink/framework": "^6.0"
     },
     "autoload": {
         "psr-4": {
             "yunwuxin\\": "src"
         }
     },
+    "minimum-stability": "dev",
     "suggest": {
         "topthink/think-migration": "create database table",
-        "yunwuxin/think-mail": "mail channel",
-        "guzzlehttp/guzzle": "sendcloud channel"
+        "yunwuxin/think-mail": "mail channel"
     },
     "require-dev": {
-        "topthink/think-migration": "^2.0",
-        "yunwuxin/think-mail": "2.0.x-dev",
-        "topthink/framework": "5.1.x-dev"
+        "topthink/think-migration": "^3.0",
+        "yunwuxin/think-mail": "^3.0"
+    },
+    "extra": {
+        "think": {
+            "services": [
+                "yunwuxin\\notification\\Service"
+            ]
+        }
     }
 }

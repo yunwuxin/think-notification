@@ -11,7 +11,7 @@
 namespace yunwuxin\notification;
 
 use think\helper\Str;
-use yunwuxin\Notification;
+use yunwuxin\facade\Notification;
 
 trait Notifiable
 {

@@ -11,7 +11,9 @@
 
 namespace yunwuxin\notification;
 
+use Swift_Message;
 use think\helper\Str;
+use think\view\driver\Twig;
 use yunwuxin\mail\Mailable;
 use yunwuxin\Notification;
 use yunwuxin\notification\message\Mail;
@@ -41,11 +43,11 @@ class MailableMessage extends Mailable
 
     protected function build()
     {
-        parent::build();
-
         $message = $this->message;
 
-        $this->markdown($message->view ?: '@notification/mail', $message->data());
+        $this->markdown($message->view ?: '@notification/mail', $message->data(), function (Twig $twig) {
+            $twig->getLoader()->addPath(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'view', 'notification');
+        });
 
         if (!empty($message->from)) {
             $this->from($message->from[0], isset($message->from[1]) ? $message->from[1] : null);
@@ -69,14 +71,11 @@ class MailableMessage extends Mailable
             $this->attachData($attachment['data'], $attachment['name'], $attachment['options']);
         }
 
+        $this->withSwiftMessage(function (Swift_Message $message) {
+            if (!is_null($this->message->priority)) {
+                $message->setPriority($this->message->priority);
+            }
+        });
     }
 
-    protected function afterBuild(\Swift_Message $message)
-    {
-        parent::afterBuild($message);
-
-        if (!is_null($this->message->priority)) {
-            $message->setPriority($this->message->priority);
-        }
-    }
 }
