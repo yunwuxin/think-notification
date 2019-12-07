@@ -21,7 +21,7 @@ class NotificationTable extends Command
         $this->setName('notification:table')->setDescription("Create a migration for the notification table");
     }
 
-    protected function handle()
+    public function handle()
     {
         if (!$this->app->has('migration.creator')) {
             $this->output->error('Install think-migration first please');
