@@ -41,7 +41,7 @@ class MailableMessage extends Mailable
         return $loader;
     }
 
-    protected function build()
+    public function build()
     {
         $message = $this->message;
 
