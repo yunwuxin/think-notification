@@ -11,6 +11,7 @@
 namespace yunwuxin\notification\model;
 
 use think\Model;
+use think\model\Collection;
 
 /**
  * Class Notification
