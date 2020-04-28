@@ -1,47 +1,47 @@
 {% component '@mail/message' %}
+    {% if greeting %}
+        # {{ greeting }}
 
-{% if greeting %}
-# {{ greeting }}
-{% else %}
-{% if level == 'error' %}
-# 抱歉！
-{% else %}
-# 您好！
-{% endif %}
-{% endif %}
+    {% else %}
+        {% if level == 'error' %}
+            # 抱歉！
 
-{% for line in introLines %}
-{{ line }}
-{% endfor %}
+        {% else %}
+            # 您好！
 
-{% if actionText is defined %}
+        {% endif %}
+    {% endif %}
 
-{% if level=='success' %}
-    {% set color = 'green' %}
-{% elseif level=='error' %}
-    {% set color = 'red' %}
-{% else %}
-    {% set color = 'blue' %}
-{% endif %}
+    {% for line in introLines %}
+        {{ line }}
 
-{% component '@mail/button' with {url:actionUrl,color:color} %}
-{{ actionText }}
-{% endcomponent %}
+    {% endfor %}
 
-{% endif %}
+    {% if actionText is not empty %}
 
-{% for line in outroLines %}
-    {{ line }}
-{% endfor %}
+        {% if level=='success' %}
+            {% set color = 'green' %}
+        {% elseif level=='error' %}
+            {% set color = 'red' %}
+        {% else %}
+            {% set color = 'blue' %}
+        {% endif %}
 
-{{ config('app.name') }}
+        {% component '@mail/button' with {url:actionUrl,color:color} %}
+            {{ actionText }}
+        {% endcomponent %}
 
-{% if actionText is defined %}
+    {% endif %}
 
-{% component '@mail/subcopy' %}
-如果上面的 "{{ actionText }}" 按钮无法点击,请复制下面的链接粘贴到你的浏览器中打开: [{{ actionUrl }}]({{ actionUrl }})
-{% endcomponent %}
+    {% for line in outroLines %}
+        {{ line }}
 
-{% endif %}
+    {% endfor %}
+
+    {% if actionText is not empty %}
+        {% component '@mail/subcopy' %}
+            如果上面的 "{{ actionText }}" 按钮无法点击,请复制下面的链接粘贴到你的浏览器中打开: [{{ actionUrl }}]({{ actionUrl }})
+        {% endcomponent %}
+    {% endif %}
 
 {% endcomponent %}

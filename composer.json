@@ -18,7 +18,6 @@
             "yunwuxin\\": "src"
         }
     },
-    "minimum-stability": "dev",
     "suggest": {
         "topthink/think-migration": "create database table",
         "yunwuxin/think-mail": "mail channel"

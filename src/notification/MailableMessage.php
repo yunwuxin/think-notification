@@ -32,15 +32,6 @@ class MailableMessage extends Mailable
         $this->notification = $notification;
     }
 
-    protected function buildTwigLoader()
-    {
-        $loader = parent::buildTwigLoader();
-
-        $loader->addPath(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'view', 'notification');
-
-        return $loader;
-    }
-
     public function build()
     {
         $message = $this->message;
