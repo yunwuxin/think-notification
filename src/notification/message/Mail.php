@@ -32,6 +32,9 @@ class Mail
     /** @var string 操作按钮的链接 */
     public $actionUrl;
 
+    /** @var string  提示语 */
+    public $subcopy;
+
     /** @var string 视图模板 */
     public $view;
 
@@ -222,15 +225,26 @@ class Mail
     /**
      * 设置操作按钮
      *
-     * @param  string $text
-     * @param  string $url
+     * @param string $text
+     * @param string $url
      * @return $this
      */
-    public function action($text, $url)
+    public function action($text, $url = null)
     {
         $this->actionText = $text;
         $this->actionUrl  = $url;
 
+        return $this;
+    }
+
+    /**
+     * 设置提示文字
+     * @param $subcopy
+     * @return $this
+     */
+    public function subcopy($subcopy)
+    {
+        $this->subcopy = $subcopy;
         return $this;
     }
 
@@ -248,6 +262,7 @@ class Mail
             'outroLines' => $this->outroLines,
             'actionText' => $this->actionText,
             'actionUrl'  => $this->actionUrl,
+            'subcopy'    => $this->subcopy,
         ], $this->viewData);
     }
 }

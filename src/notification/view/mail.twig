@@ -18,19 +18,22 @@
     {% endfor %}
 
     {% if actionText is not empty %}
-
-        {% if level=='success' %}
-            {% set color = 'green' %}
-        {% elseif level=='error' %}
-            {% set color = 'red' %}
+        {% if actionUrl is not empty %}
+            {% if level=='success' %}
+                {% set color = 'green' %}
+            {% elseif level=='error' %}
+                {% set color = 'red' %}
+            {% else %}
+                {% set color = 'blue' %}
+            {% endif %}
+            {% component '@mail/button' with {url:actionUrl,color:color} %}
+                {{ actionText }}
+            {% endcomponent %}
         {% else %}
-            {% set color = 'blue' %}
+            {% component '@mail/code' %}
+                {{ actionText }}
+            {% endcomponent %}
         {% endif %}
-
-        {% component '@mail/button' with {url:actionUrl,color:color} %}
-            {{ actionText }}
-        {% endcomponent %}
-
     {% endif %}
 
     {% for line in outroLines %}
@@ -38,9 +41,9 @@
 
     {% endfor %}
 
-    {% if actionText is not empty %}
+    {% if subcopy is not empty %}
         {% component '@mail/subcopy' %}
-            如果上面的 "{{ actionText }}" 按钮无法点击,请复制下面的链接粘贴到你的浏览器中打开: [{{ actionUrl }}]({{ actionUrl }})
+            {{ subcopy }}
         {% endcomponent %}
     {% endif %}
 
