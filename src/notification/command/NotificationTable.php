@@ -24,11 +24,24 @@ class NotificationTable extends Command
 
     protected function execute(Input $input, Output $output)
     {
-        //TODO
+        $this->createMigration($output);
     }
 
-    protected function createMigration()
+    protected function createMigration($output)
     {
+        $configFilePath = APP_PATH.'..'.DIRECTORY_SEPARATOR.'database'.DIRECTORY_SEPARATOR.'migrations'
+            .DIRECTORY_SEPARATOR.date("YmdHis").'_notification.php';
 
+        if (is_file($configFilePath)) {
+            $output->writeln('Migration file is exist');
+            return;
+        }
+
+        $res = copy(__DIR__."./stubs/notification.stub", $configFilePath);
+        if ($res) {
+            $output->writeln('Migration file success:'.$configFilePath);
+        } else {
+            $output->writeln('Migration file error');
+        }
     }
 }
