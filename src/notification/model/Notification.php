@@ -25,9 +25,9 @@ class Notification extends Model
 {
 
     protected $type = [
-        'read_time' => 'datetime',
         'data'      => 'array'
     ];
+    protected $autoWriteTimestamp = "timestamp";
 
     public function notifiable()
     {
@@ -36,12 +36,12 @@ class Notification extends Model
 
     public function markAsRead()
     {
-        if (is_null($this->data['read_time'])) {
-            $this->save(['read_time' => time()]);
+        if (is_null($this->getData('read_time'))) {
+            $this->save(['read_time' => (new \DateTime("now"))->format("Y-m-d H:i:s.u")]);
         }
     }
 
-    public function toCollection($collection)
+    public function toCollection($collection, $resultSetType = null)
     {
         return new NotificationCollection($collection);
     }
