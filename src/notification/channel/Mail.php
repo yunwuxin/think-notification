@@ -33,7 +33,7 @@ class Mail extends Channel
         }
 
         if ($message instanceof Mailable) {
-            \yunwuxin\Mail::send($message);
+            \yunwuxin\facade\Mail::send($message);
         }
     }
 }
