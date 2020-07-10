@@ -39,7 +39,7 @@ class Notification extends Migrator
                 'null'    => true,
                 'default' => null
             ])
-            ->addTimestamps()
+            ->addTimestamps('create_time','update_time')
             ->create();
     }
 }
