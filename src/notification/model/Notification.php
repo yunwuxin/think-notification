@@ -10,7 +10,9 @@
 // +----------------------------------------------------------------------
 namespace yunwuxin\notification\model;
 
+use think\Collection;
 use think\Model;
+use think\model\relation\MorphTo;
 
 /**
  * Class Notification
@@ -29,7 +31,7 @@ class Notification extends Model
         'data'      => 'array',
     ];
 
-    public function notifiable()
+    public function notifiable(): MorphTo
     {
         return $this->morphTo();
     }
@@ -44,8 +46,8 @@ class Notification extends Model
     /**
      * 转换数据集为数据集对象
      * @access public
-     * @param  array|Collection $collection 数据集
-     * @param  string           $resultSetType 数据集类
+     * @param array|Collection $collection 数据集
+     * @param string|null $resultSetType 数据集类
      * @return Collection
      */
     public function toCollection(iterable $collection = [], string $resultSetType = null): Collection

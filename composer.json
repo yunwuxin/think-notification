@@ -1,36 +1,38 @@
 {
-    "name": "yunwuxin/think-notification",
-    "description": "The Notification Library For ThinkPHP6",
-    "license": "Apache-2.0",
-    "authors": [
-        {
-            "name": "yunwuxin",
-            "email": "448901948@qq.com"
-        }
-    ],
-    "require": {
-        "ramsey/uuid": "^3.5",
-        "topthink/think-queue": "^3.0",
-        "topthink/framework": "^6.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "yunwuxin\\": "src"
-        }
-    },
-    "suggest": {
-        "topthink/think-migration": "create database table",
-        "yunwuxin/think-mail": "mail channel"
-    },
-    "require-dev": {
-        "topthink/think-migration": "^3.0",
-        "yunwuxin/think-mail": "^3.0"
-    },
-    "extra": {
-        "think": {
-            "services": [
-                "yunwuxin\\notification\\Service"
-            ]
-        }
+  "name": "yunwuxin/think-notification",
+  "description": "The Notification Library For ThinkPHP6",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "yunwuxin",
+      "email": "448901948@qq.com"
     }
+  ],
+  "require": {
+    "ramsey/uuid": "^3.5",
+    "topthink/think-queue": "^3.0",
+    "topthink/framework": "^6.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "yunwuxin\\": "src"
+    }
+  },
+  "suggest": {
+    "topthink/think-migration": "create database table",
+    "yunwuxin/think-mail": "mail channel",
+    "larva/think-sms": "sms channel"
+  },
+  "require-dev": {
+    "topthink/think-migration": "^3.0",
+    "yunwuxin/think-mail": "^3.0",
+    "larva/think-sms": "^1.0"
+  },
+  "extra": {
+    "think": {
+      "services": [
+        "yunwuxin\\notification\\Service"
+      ]
+    }
+  }
 }

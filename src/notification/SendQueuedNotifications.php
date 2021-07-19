@@ -26,22 +26,23 @@ class SendQueuedNotifications
 
     public function __construct($notifiables, Notification $notification, array $channels = null)
     {
-        $this->notifiables  = $notifiables;
+        $this->notifiables = $notifiables;
         $this->notification = $notification;
-        $this->channels     = $channels;
+        $this->channels = $channels;
     }
 
     public function handle(Sender $sender)
     {
         $sender->sendNow($this->notifiables, $this->notification, $this->channels);
     }
-    
-    
+
+
     /**
      * 队列任务失败回调
      * @return void
      */
-    public function failed(){
+    public function failed()
+    {
         if (method_exists($this->notification, 'failed')) {
             $this->notification->failed($this->notifiables);
         }
