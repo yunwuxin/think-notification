@@ -12,6 +12,7 @@ namespace yunwuxin\notification\model;
 
 use think\Collection;
 use think\Model;
+use think\model\relation\MorphTo;
 
 /**
  * Class Notification
@@ -30,7 +31,7 @@ class Notification extends Model
         'data'      => 'array',
     ];
 
-    public function notifiable()
+    public function notifiable(): MorphTo
     {
         return $this->morphTo();
     }

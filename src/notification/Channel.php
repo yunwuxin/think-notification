@@ -19,14 +19,14 @@ abstract class Channel
 
     /**
      * 发送通知
-     * @param Notifiable   $notifiable
+     * @param Notifiable $notifiable
      * @param Notification $notification
      */
     abstract public function send($notifiable, Notification $notification);
 
     /**
      * 获取通知数据
-     * @param Notifiable   $notifiable
+     * @param Notifiable $notifiable
      * @param Notification $notification
      * @return mixed
      */

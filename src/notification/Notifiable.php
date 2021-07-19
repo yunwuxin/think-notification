@@ -13,18 +13,30 @@ namespace yunwuxin\notification;
 use think\helper\Str;
 use yunwuxin\facade\Notification;
 
+/**
+ * Trait Notifiable
+ * @method string prepareMobile()
+ */
 trait Notifiable
 {
-    public function notify($instance)
+    /**
+     * @param \yunwuxin\Notification $notification
+     */
+    public function notify(\yunwuxin\Notification $notification)
     {
-        Notification::send($this, $instance);
+        Notification::send($this, $notification);
     }
 
-    public function getPreparedData($channel)
+    /**
+     * 准备渠道收件人
+     * @param string $channel
+     * @return mixed|void
+     */
+    public function getPreparedData(string $channel)
     {
-        if (method_exists($this, $method = 'prepare' . Str::studly($channel))) {
+        $method = 'prepare' . Str::studly($channel);
+        if (method_exists($this, $method)) {
             return $this->{$method}();
         }
     }
-
 }
