@@ -11,12 +11,15 @@
 
 namespace yunwuxin\notification;
 
+use yunwuxin\model\SerializesModel;
 use yunwuxin\Notification;
 
 class SendQueuedNotifications
 {
-    /** @var Notifiable[] */
-    protected $notifiables;
+    use SerializesModel;
+
+    /** @var Notifiable */
+    protected $notifiable;
 
     /** @var Notification */
     protected $notification;
@@ -24,26 +27,26 @@ class SendQueuedNotifications
     /** @var array */
     protected $channels = null;
 
-    public function __construct($notifiables, Notification $notification, array $channels = null)
+    public function __construct($notifiable, Notification $notification, array $channels = null)
     {
-        $this->notifiables  = $notifiables;
+        $this->notifiable   = $notifiable;
         $this->notification = $notification;
         $this->channels     = $channels;
     }
 
     public function handle(Sender $sender)
     {
-        $sender->sendNow($this->notifiables, $this->notification, $this->channels);
+        $sender->sendNow($this->notifiable, $this->notification, $this->channels);
     }
-    
-    
+
     /**
      * 队列任务失败回调
      * @return void
      */
-    public function failed(){
+    public function failed()
+    {
         if (method_exists($this->notification, 'failed')) {
-            $this->notification->failed($this->notifiables);
+            $this->notification->failed($this->notifiable);
         }
     }
 }
