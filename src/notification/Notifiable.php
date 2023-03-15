@@ -10,12 +10,23 @@
 // +----------------------------------------------------------------------
 namespace yunwuxin\notification;
 
+use Exception;
+use think\facade\Log;
 use think\helper\Str;
 use yunwuxin\facade\Notification;
 
 trait Notifiable
 {
     public function notify($instance)
+    {
+        try {
+            Notification::send($this, $instance);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+        }
+    }
+
+    public function mustNotify($instance)
     {
         Notification::send($this, $instance);
     }

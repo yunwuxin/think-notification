@@ -17,7 +17,7 @@ class Sender extends Manager
     /**
      * 发送通知
      * @param Notifiable[]|Notifiable $notifiables
-     * @param Notification            $notification
+     * @param Notification $notification
      */
     public function send($notifiables, Notification $notification)
     {
@@ -33,8 +33,8 @@ class Sender extends Manager
     /**
      * 发送通知(立即发送)
      * @param Notifiable[]|Notifiable $notifiables
-     * @param Notification            $notification
-     * @param array                   $channels
+     * @param Notification $notification
+     * @param array $channels
      */
     public function sendNow($notifiables, Notification $notification, array $channels = null)
     {
@@ -64,7 +64,7 @@ class Sender extends Manager
     /**
      * 发送通知(队列发送)
      * @param Notifiable[]|Notifiable $notifiables
-     * @param Notification            $notification
+     * @param Notification|ShouldQueue $notification
      */
     public function sendQueue($notifiables, Notification $notification)
     {
