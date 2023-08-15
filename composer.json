@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "ramsey/uuid": "^3.5",
+        "ramsey/uuid": "^3.5|^4.0",
         "topthink/think-queue": "^3.0",
         "topthink/framework": "^6.0|^8.0",
         "yunwuxin/think-model-serializer": "^1.0"
