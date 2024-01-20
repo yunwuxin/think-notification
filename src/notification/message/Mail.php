@@ -53,7 +53,7 @@ class Mail
     /** @var array 附件(数据) */
     public $rawAttachments = [];
 
-    /** @var null 优先级 */
+    /** @var int 优先级 */
     public $priority = null;
 
     /**
@@ -98,12 +98,11 @@ class Mail
     /**
      * 设置附件
      * @param       $file
-     * @param array $options
      * @return $this
      */
-    public function attach($file, array $options = [])
+    public function attach($file)
     {
-        $this->attachments[] = compact('file', 'options');
+        $this->attachments[] = $file;
 
         return $this;
     }
@@ -112,12 +111,11 @@ class Mail
      * 设置附件(数据)
      * @param       $data
      * @param       $name
-     * @param array $options
      * @return $this
      */
-    public function attachData($data, $name, array $options = [])
+    public function attachData($data, $name)
     {
-        $this->rawAttachments[] = compact('data', 'name', 'options');
+        $this->rawAttachments[] = compact('data', 'name');
 
         return $this;
     }

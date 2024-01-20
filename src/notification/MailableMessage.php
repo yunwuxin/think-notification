@@ -11,7 +11,7 @@
 
 namespace yunwuxin\notification;
 
-use Swift_Message;
+use Nette\Mail\Message;
 use think\helper\Str;
 use think\view\driver\Twig;
 use yunwuxin\mail\Mailable;
@@ -55,14 +55,14 @@ class MailableMessage extends Mailable
         ));
 
         foreach ($message->attachments as $attachment) {
-            $this->attach($attachment['file'], $attachment['options']);
+            $this->attach($attachment);
         }
 
         foreach ($message->rawAttachments as $attachment) {
-            $this->attachData($attachment['data'], $attachment['name'], $attachment['options']);
+            $this->attachData($attachment['data'], $attachment['name']);
         }
 
-        $this->withSwiftMessage(function (Swift_Message $message) {
+        $this->withMessage(function (Message $message) {
             if (!is_null($this->message->priority)) {
                 $message->setPriority($this->message->priority);
             }

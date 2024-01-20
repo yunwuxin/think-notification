@@ -25,7 +25,7 @@
     },
     "require-dev": {
         "topthink/think-migration": "^3.0",
-        "yunwuxin/think-mail": "^3.0"
+        "yunwuxin/think-mail": "^4.0"
     },
     "extra": {
         "think": {
